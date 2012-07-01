@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Tab</title>
+		<style>
+		body {
+			background-color: #f4f4f4;
+			font: 1.2em/1.8em Helvetica;
+			color: #ccc;
+			padding: 6em;
+		}
+
+		a {
+			color: #ccc;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: #333;
+		}
+
+		.instructions {
+			display: none;
+			text-align: center;
+		}
+
+		.instructions a {
+			color: #333;
+		}
+
+		.setup .instructions {
+			display: block;
+		}
+
+		.setup #reading-list {
+			display: none;
+		}
+
+		</style>
+	</head>
+	<body>
+		<ol id="reading-list"></ol>
+		<p class="instructions">
+			This plugin needs access to your Readability account.
+			<button id="connect-readability-button">Connect</button>
+		</p>
+		<script>
+			function loadReadingList(bookmarks)
+			{
+				var ol = document.getElementById('reading-list');
+
+				// Clean reading list
+				while (ol.firstChild)
+					ol.removeChild(ol.firstChild);
+
+				bookmarks.forEach(function(bookmark) {
+					var li = document.createElement('li'),
+						a = document.createElement('a'),
+						title = document.createTextNode(bookmark.article.title);
+
+					ol.appendChild(li);
+
+					li.appendChild(a);
+
+					a.appendChild(title);
+					a.href = bookmark.article.url;
+				});
+			}
+
+			if (localStorage['bookmarks'])
+				loadReadingList(JSON.parse(localStorage['bookmarks']));
+		</script>
+	</body>
+</html>

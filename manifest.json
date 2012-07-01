@@ -1,0 +1,12 @@
+{
+	"name": "Readability",
+	"version": "1.0",
+	"permissions": [
+		"tabs",
+		"https://www.readability.com/api/rest/v1"
+	],
+	"background_page": "background.html",
+	"chrome_url_overrides" : {
+    	"newtab": "newtab.html"
+  	}
+}
