@@ -7,7 +7,7 @@
 			background-color: #f4f4f4;
 			font: 1.2em/1.8em Helvetica;
 			color: #ccc;
-			padding: 6em;
+			padding: 6em 6em 0 6em;
 		}
 
 		a {
@@ -45,6 +45,18 @@
 			<button id="connect-readability-button">Connect</button>
 		</p>
 		<script>
+			function decodeHtmlEntities(html)
+			{
+				var el = document.createElement('div');
+				el.innerHTML = html;
+				return el.textContent;
+			}
+
+			function readabilityUrl(id)
+			{
+				return 'http://www.readability.com/articles/' + id;
+			}
+
 			function loadReadingList(bookmarks)
 			{
 				var ol = document.getElementById('reading-list');
@@ -56,14 +68,15 @@
 				bookmarks.forEach(function(bookmark) {
 					var li = document.createElement('li'),
 						a = document.createElement('a'),
-						title = document.createTextNode(bookmark.article.title);
+						title = document.createTextNode(bookmark.article.title || bookmark.article.url);
 
 					ol.appendChild(li);
 
 					li.appendChild(a);
 
 					a.appendChild(title);
-					a.href = bookmark.article.url;
+					a.href = readabilityUrl(bookmark.article.id);
+					a.title = decodeHtmlEntities(bookmark.article.excerpt);
 				});
 			}
 
