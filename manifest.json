@@ -1,11 +1,18 @@
 {
+	"manifest_version": 2,
 	"name": "Readability",
 	"version": "1.0",
 	"permissions": [
 		"tabs",
 		"https://www.readability.com/api/rest/v1"
 	],
-	"background_page": "background.html",
+	"background": {
+		"scripts" : [
+			"oauth.js",
+			"oauth_wrapper.js",
+			"background.js"
+		]
+	},
 	"chrome_url_overrides" : {
     	"newtab": "newtab.html"
   	}
